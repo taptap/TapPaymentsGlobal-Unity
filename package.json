@@ -1,0 +1,12 @@
+{
+  "name": "com.taptap.tds.payments.global",
+  "displayName": "TapTap Payments Global",
+  "description": "TapTap Develop Service",
+  "version": "3.30.3",
+  "unity": "2019.4",
+  "license": "MIT",
+  "dependencies": {
+    "com.taptap.tds.login": "3.30.3",
+    "com.tapsdk.androiddependencyresolver": "1.2.0"
+  }
+}

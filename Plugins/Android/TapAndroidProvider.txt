@@ -1,0 +1,40 @@
+{
+  "Version": 1,
+  // 当前配置版本，需要配置为 1，用来表示整体数据结构的版本，目前 Unity Android Dependency Resolver 仅能解析版本为 1 的数据
+  "Use": true,
+  // 当前配置是否会被使用
+  "Priority": 10,
+  // 在打包时，修改 Gradle 模板的顺序，目前只有 XDSDK 使用了 10 以内的数字
+  "ModuleName": "TapTap.Payment",
+  // 修改 Gradle 模板模块的名字
+  // 下面数组是用来表示所有需要修改 Gradle 模板的地方
+  // 数组中的每个元素，会标明修改哪个具体的 Gradle 模板，这个 Gradle 模板中的具体位置，以及修改内容
+  "AndroidGradleContext": [
+    {
+      // 修改位置（需要配合locationParam使用）
+      // 1 - 根据 Unity Gradle 模板 Placeholder 进行修改，需要在 locationParam 字段中写清 Placeholder
+      // 2 - Custom 自定义的匹配内容，有时候 Unity Gradle 模板中的 Placeholder 无法定位我们需要的修改内容，可以用 Custom 匹配模式
+      // Custom 匹配支持正则匹配，同时如果匹配内容后，会把 locationParam 中的内容修改到定位的地方
+      // 3 - 在末尾添加新的内容，适合修改 gradleTemplate.properties 这种内容，可以直接在模块插入新的属性
+      "locationType": 1,
+      "unityVersionCompatibleType": 0,
+      // 本次修针对 Unity 哪个版本：0 - 任意版本；1 - Unity 2019 以上；2 - Unity 2019 以下
+      // 修改哪个 Gradle 模板
+      // 1- AndroidManifest.xml;2 - LauncherManifest.xml(Unity 2019版本之上才有，之前版本等于 AndroidManifest.xml);
+      // 3 - mainTemplate.gradle;4 - launcherTemplate.gradle(Unity 2019版本之上才有，之前版本等于 mainTemplate.gradle)
+      // 5 - baseProjectTemplate.gradle (Unity 2019版本之上才有，之前版本等于 mainTemplate.gradle)
+      // 6 - gradleTemplate.properties
+      "templateType": 3,
+      // 修改方式，在根据 locationType 和 locationParam 定位到具体的修改位置后，需要如何修改：1 - 在定位的位置后面插入locationParam的内容；2 - 把locationParam的内容替换进来
+      "processType": 1,
+      // 辅助定位的具体参数
+      "locationParam": "DEPS",
+      // 修改的具体内容，数组形式，比如这里会在 mainTemplate.gradle 的 DEPS 关键字后面添加这些内容，来达到添加一些 Android 依赖库的目的
+      // 这里添加依赖库，Unity Android Dependency Resolver 会自动与已经存在的 mainTemplate.gradle 合并，并优先使用更高版本的 Android 依赖库
+      "processContent": [
+        "   implementation 'com.squareup.okhttp3:okhttp:4.9.2'",
+        "   implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.10'"
+      ]
+    }
+  ]
+}
